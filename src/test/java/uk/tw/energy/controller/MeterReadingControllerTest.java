@@ -8,12 +8,14 @@ import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.service.MeterReadingService;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MeterReadingControllerTest {
 
@@ -47,38 +49,50 @@ public class MeterReadingControllerTest {
 
     @Test
     public void givenMultipleBatchesOfMeterReadingsShouldStore() {
-        MeterReadings meterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
-                .generateElectricityReadings()
-                .build();
+        
+        try {
+            MeterReadings meterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
+                    .generateElectricityReadings()
+                    .build();
+       
 
-        MeterReadings otherMeterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
-                .generateElectricityReadings()
-                .build();
+            MeterReadings otherMeterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
+                    .generateElectricityReadings()
+                    .build();       
 
-        meterReadingController.storeReadings(meterReadings);
-        meterReadingController.storeReadings(otherMeterReadings);
+            meterReadingController.storeReadings(meterReadings);
+            meterReadingController.storeReadings(otherMeterReadings);
 
-        List<ElectricityReading> expectedElectricityReadings = new ArrayList<>();
-        expectedElectricityReadings.addAll(meterReadings.getElectricityReadings());
-        expectedElectricityReadings.addAll(otherMeterReadings.getElectricityReadings());
+            List<ElectricityReading> expectedElectricityReadings = new ArrayList<>();
+            expectedElectricityReadings.addAll(meterReadings.getElectricityReadings());
+            expectedElectricityReadings.addAll(otherMeterReadings.getElectricityReadings());
 
-        assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(expectedElectricityReadings);
+            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(expectedElectricityReadings);
+        } catch (NoSuchAlgorithmException e) {
+            assertTrue(false, "Not exists secure random algorithm");
+        }
     }
 
     @Test
     public void givenMeterReadingsAssociatedWithTheUserShouldStoreAssociatedWithUser() {
-        MeterReadings meterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
+        try {
+            MeterReadings meterReadings = new MeterReadingsBuilder().setSmartMeterId(SMART_METER_ID)
+                    .generateElectricityReadings()
+                    .build();
+
+            MeterReadings otherMeterReadings = new MeterReadingsBuilder().setSmartMeterId("00001")
                 .generateElectricityReadings()
                 .build();
 
-        MeterReadings otherMeterReadings = new MeterReadingsBuilder().setSmartMeterId("00001")
-                .generateElectricityReadings()
-                .build();
+            meterReadingController.storeReadings(meterReadings);
+            meterReadingController.storeReadings(otherMeterReadings);
 
-        meterReadingController.storeReadings(meterReadings);
-        meterReadingController.storeReadings(otherMeterReadings);
+            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(meterReadings.getElectricityReadings());
+        } catch (NoSuchAlgorithmException e) {
+            assertTrue(false, "Not exists secure random algorithm");
+        }
 
-        assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(meterReadings.getElectricityReadings());
+        
     }
 
     @Test

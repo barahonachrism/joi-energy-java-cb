@@ -11,6 +11,7 @@ import uk.tw.energy.domain.PricePlan;
 import uk.tw.energy.generator.ElectricityReadingsGenerator;
 
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ public class SeedingApplicationDataConfiguration {
     }
 
     @Bean
-    public Map<String, List<ElectricityReading>> perMeterElectricityReadings() {
+    public Map<String, List<ElectricityReading>> perMeterElectricityReadings() throws NoSuchAlgorithmException {
         final Map<String, List<ElectricityReading>> readings = new HashMap<>();
         final ElectricityReadingsGenerator electricityReadingsGenerator = new ElectricityReadingsGenerator();
         smartMeterToPricePlanAccounts()

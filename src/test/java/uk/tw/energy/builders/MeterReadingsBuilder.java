@@ -4,6 +4,7 @@ import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.generator.ElectricityReadingsGenerator;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,11 @@ public class MeterReadingsBuilder {
         return this;
     }
 
-    public MeterReadingsBuilder generateElectricityReadings() {
+    public MeterReadingsBuilder generateElectricityReadings() throws NoSuchAlgorithmException {
         return generateElectricityReadings(5);
     }
 
-    public MeterReadingsBuilder generateElectricityReadings(int number) {
+    public MeterReadingsBuilder generateElectricityReadings(int number) throws NoSuchAlgorithmException {
         ElectricityReadingsGenerator readingsBuilder = new ElectricityReadingsGenerator();
         this.electricityReadings = readingsBuilder.generate(number);
         return this;
