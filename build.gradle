@@ -68,7 +68,10 @@ task functionalTest(type: Test) {
 }
 
 jacocoTestReport {
-    dependsOn functionalTest // tests are required to run before generating the report
+    dependsOn functionalTest // tests are required to run before generating the 
+    reports {
+        xml.enabled true
+    }
 }
 
 dependencies {
