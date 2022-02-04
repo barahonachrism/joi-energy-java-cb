@@ -79,7 +79,7 @@ jacocoTestReport {
         classDirectories.from = files(classDirectories.files.collect {
             fileTree(
                 dir: it, 
-                exclude: [ 'uk/tw/energy/App.class', 'uk/tw/energy/SeedingApplicationDataConfiguration.class' ])
+                exclude: [ 'uk/tw/energy/App.java', 'uk/tw/energy/SeedingApplicationDataConfiguration.java' ])
         })
     }
 }
