@@ -13,19 +13,19 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class PricePlanTest {
+class PricePlanTest {
 
     private final String ENERGY_SUPPLIER_NAME = "Energy Supplier Name";
 
     @Test
-    public void shouldReturnTheEnergySupplierGivenInTheConstructor() {
+    void shouldReturnTheEnergySupplierGivenInTheConstructor() {
         PricePlan pricePlan = new PricePlan(null, ENERGY_SUPPLIER_NAME, null, null);
 
         assertThat(pricePlan.getEnergySupplier()).isEqualTo(ENERGY_SUPPLIER_NAME);
     }
 
     @Test
-    public void shouldReturnTheBasePriceGivenAnOrdinaryDateTime() throws Exception {
+    void shouldReturnTheBasePriceGivenAnOrdinaryDateTime() throws Exception {
         LocalDateTime normalDateTime = LocalDateTime.of(2017, Month.AUGUST, 31, 12, 0, 0);
         PricePlan.PeakTimeMultiplier peakTimeMultiplier = new PricePlan.PeakTimeMultiplier(DayOfWeek.WEDNESDAY, BigDecimal.TEN);
         PricePlan pricePlan = new PricePlan(null, null, BigDecimal.ONE, singletonList(peakTimeMultiplier));
@@ -36,7 +36,7 @@ public class PricePlanTest {
     }
 
     @Test
-    public void shouldReturnAnExceptionPriceGivenExceptionalDateTime() throws Exception {
+    void shouldReturnAnExceptionPriceGivenExceptionalDateTime() throws Exception {
         LocalDateTime exceptionalDateTime = LocalDateTime.of(2017, Month.AUGUST, 30, 23, 0, 0);
         PricePlan.PeakTimeMultiplier peakTimeMultiplier = new PricePlan.PeakTimeMultiplier(DayOfWeek.WEDNESDAY, BigDecimal.TEN);
         PricePlan pricePlan = new PricePlan(null, null, BigDecimal.ONE, singletonList(peakTimeMultiplier));
@@ -47,7 +47,7 @@ public class PricePlanTest {
     }
 
     @Test
-    public void shouldReceiveMultipleExceptionalDateTimes() throws Exception {
+    void shouldReceiveMultipleExceptionalDateTimes() throws Exception {
         LocalDateTime exceptionalDateTime = LocalDateTime.of(2017, Month.AUGUST, 30, 23, 0, 0);
         PricePlan.PeakTimeMultiplier peakTimeMultiplier = new PricePlan.PeakTimeMultiplier(DayOfWeek.WEDNESDAY, BigDecimal.TEN);
         PricePlan.PeakTimeMultiplier otherPeakTimeMultiplier = new PricePlan.PeakTimeMultiplier(DayOfWeek.TUESDAY, BigDecimal.TEN);
