@@ -7,8 +7,6 @@ public class MeterReadings {
     private List<ElectricityReading> electricityReadings;
     private String smartMeterId;
 
-    public MeterReadings() { }
-
     public MeterReadings(String smartMeterId, List<ElectricityReading> electricityReadings) {
         this.smartMeterId = smartMeterId;
         this.electricityReadings = electricityReadings;

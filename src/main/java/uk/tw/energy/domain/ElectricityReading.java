@@ -8,8 +8,6 @@ public class ElectricityReading {
     private Instant time;
     private BigDecimal reading; // kW
 
-    public ElectricityReading() { }
-
     public ElectricityReading(Instant time, BigDecimal reading) {
         this.time = time;
         this.reading = reading;
