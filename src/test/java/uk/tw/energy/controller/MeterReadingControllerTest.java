@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MeterReadingControllerTest {
@@ -67,7 +67,7 @@ class MeterReadingControllerTest {
             expectedElectricityReadings.addAll(meterReadings.getElectricityReadings());
             expectedElectricityReadings.addAll(otherMeterReadings.getElectricityReadings());
 
-            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(expectedElectricityReadings);
+            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).containsAll(expectedElectricityReadings);
         } catch (NoSuchAlgorithmException e) {
             assertTrue(false, "Not exists secure random algorithm");
         }
@@ -87,7 +87,7 @@ class MeterReadingControllerTest {
             meterReadingController.storeReadings(meterReadings);
             meterReadingController.storeReadings(otherMeterReadings);
 
-            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).isEqualTo(meterReadings.getElectricityReadings());
+            assertThat(meterReadingService.getReadings(SMART_METER_ID).get()).containsAll(meterReadings.getElectricityReadings());
         } catch (NoSuchAlgorithmException e) {
             assertTrue(false, "Not exists secure random algorithm");
         }
