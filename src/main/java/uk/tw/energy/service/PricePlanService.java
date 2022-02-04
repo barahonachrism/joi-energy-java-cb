@@ -52,14 +52,16 @@ public class PricePlanService {
     }
 
     private BigDecimal calculateTimeElapsed(List<ElectricityReading> electricityReadings) {
-        ElectricityReading first = electricityReadings.stream()
-                .min(Comparator.comparing(ElectricityReading::getTime))
-                .get();
-        ElectricityReading last = electricityReadings.stream()
-                .max(Comparator.comparing(ElectricityReading::getTime))
-                .get();
+        Optional<ElectricityReading> first = electricityReadings.stream()
+                .min(Comparator.comparing(ElectricityReading::getTime));
 
-        return BigDecimal.valueOf(Duration.between(first.getTime(), last.getTime()).getSeconds() / 3600.0);
+        Optional<ElectricityReading> last = electricityReadings.stream()
+                .max(Comparator.comparing(ElectricityReading::getTime));
+        
+        if(first.isPresent() && last.isPresent()){
+            return BigDecimal.valueOf(Duration.between(first.get().getTime(), last.get().getTime()).getSeconds() / 3600.0);
+        }
+        return null;
     }
 
 }
