@@ -23,7 +23,7 @@ public class ElectricityReadingsGenerator {
     public List<ElectricityReading> generate(int number) {
         List<ElectricityReading> readings = new ArrayList<>();
         Instant now = Instant.now();
-        long limit = (long)number;
+        long limit = number;
         for (long i = 0; i < limit; i++) {
             double positiveRandomValue = Math.abs(readingRandomiser.nextGaussian());
             BigDecimal randomReading = BigDecimal.valueOf(positiveRandomValue).setScale(4, RoundingMode.CEILING);

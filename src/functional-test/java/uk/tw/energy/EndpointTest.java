@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.security.NoSuchAlgorithmException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = App.class)
-public class EndpointTest {
+class EndpointTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -28,7 +28,7 @@ public class EndpointTest {
     private ObjectMapper mapper;
 
     @Test
-    public void shouldStoreReadings() throws JsonProcessingException {
+    void shouldStoreReadings() throws JsonProcessingException {
         try {
             MeterReadings meterReadings = new MeterReadingsBuilder().generateElectricityReadings().build();
             HttpEntity<String> entity = getStringHttpEntity(meterReadings);
@@ -43,7 +43,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void givenMeterIdShouldReturnAMeterReadingAssociatedWithMeterId() throws JsonProcessingException {
+    void givenMeterIdShouldReturnAMeterReadingAssociatedWithMeterId() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
@@ -53,7 +53,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void shouldCalculateAllPrices() throws JsonProcessingException {
+    void shouldCalculateAllPrices() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
@@ -63,7 +63,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void givenMeterIdAndLimitShouldReturnRecommendedCheapestPricePlans() throws JsonProcessingException {
+    void givenMeterIdAndLimitShouldReturnRecommendedCheapestPricePlans() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 

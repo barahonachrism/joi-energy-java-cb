@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class PricePlanComparatorControllerTest {
+class PricePlanComparatorControllerTest {
 
     private static final String PRICE_PLAN_1_ID = "test-supplier";
     private static final String PRICE_PLAN_2_ID = "best-supplier";
@@ -31,7 +31,7 @@ public class PricePlanComparatorControllerTest {
     private AccountService accountService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         meterReadingService = new MeterReadingService(new HashMap<>());
         PricePlan pricePlan1 = new PricePlan(PRICE_PLAN_1_ID, null, BigDecimal.TEN, null);
         PricePlan pricePlan2 = new PricePlan(PRICE_PLAN_2_ID, null, BigDecimal.ONE, null);
@@ -48,7 +48,7 @@ public class PricePlanComparatorControllerTest {
     }
 
     @Test
-    public void shouldCalculateCostForMeterReadingsForEveryPricePlan() {
+    void shouldCalculateCostForMeterReadingsForEveryPricePlan() {
 
         ElectricityReading electricityReading = new ElectricityReading(Instant.now().minusSeconds(3600), BigDecimal.valueOf(15.0));
         ElectricityReading otherReading = new ElectricityReading(Instant.now(), BigDecimal.valueOf(5.0));
@@ -66,7 +66,7 @@ public class PricePlanComparatorControllerTest {
     }
 
     @Test
-    public void shouldRecommendCheapestPricePlansNoLimitForMeterUsage() throws Exception {
+    void shouldRecommendCheapestPricePlansNoLimitForMeterUsage() throws Exception {
 
         ElectricityReading electricityReading = new ElectricityReading(Instant.now().minusSeconds(1800), BigDecimal.valueOf(35.0));
         ElectricityReading otherReading = new ElectricityReading(Instant.now(), BigDecimal.valueOf(3.0));
@@ -82,7 +82,7 @@ public class PricePlanComparatorControllerTest {
 
 
     @Test
-    public void shouldRecommendLimitedCheapestPricePlansForMeterUsage() throws Exception {
+    void shouldRecommendLimitedCheapestPricePlansForMeterUsage() throws Exception {
 
         ElectricityReading electricityReading = new ElectricityReading(Instant.now().minusSeconds(2700), BigDecimal.valueOf(5.0));
         ElectricityReading otherReading = new ElectricityReading(Instant.now(), BigDecimal.valueOf(20.0));
@@ -96,7 +96,7 @@ public class PricePlanComparatorControllerTest {
     }
 
     @Test
-    public void shouldRecommendCheapestPricePlansMoreThanLimitAvailableForMeterUsage() throws Exception {
+    void shouldRecommendCheapestPricePlansMoreThanLimitAvailableForMeterUsage() throws Exception {
 
         ElectricityReading electricityReading = new ElectricityReading(Instant.now().minusSeconds(3600), BigDecimal.valueOf(25.0));
         ElectricityReading otherReading = new ElectricityReading(Instant.now(), BigDecimal.valueOf(3.0));
@@ -111,7 +111,7 @@ public class PricePlanComparatorControllerTest {
     }
 
     @Test
-    public void givenNoMatchingMeterIdShouldReturnNotFound() {
+    void givenNoMatchingMeterIdShouldReturnNotFound() {
         assertThat(controller.calculatedCostForEachPricePlan("not-found").getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
