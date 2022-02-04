@@ -72,15 +72,13 @@ jacocoTestReport {
     reports {
         xml.enabled true
         csv.enabled false
-        html.enabled false
+        html.enabled true
     }
 
-    afterEvaluate { // (optional) : to exclude classes / packages from coverage
-        classDirectories.from = files(classDirectories.files.collect {
-            fileTree(
-                dir: it, 
-                exclude: [ '**/*/uk/tw/energy/App.class', '**/*/uk/tw/energy/SeedingApplicationDataConfiguration.class' ])
-        })
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['uk/tw/energy/App.*','uk/tw/energy/SeedingApplicationDataConfiguration.*'])
+        }))
     }
 }
 
