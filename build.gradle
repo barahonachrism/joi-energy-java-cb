@@ -78,6 +78,7 @@ jacocoTestReport {
     afterEvaluate { // (optional) : to exclude classes / packages from coverage
         classDirectories.from = files(classDirectories.files.collect {
             fileTree(
+                dir: it, 
                 exclude: [ '**/*/uk/tw/energy/App.class', '**/*/uk/tw/energy/SeedingApplicationDataConfiguration.class' ])
         })
     }
